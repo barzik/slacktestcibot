@@ -1,0 +1,19 @@
+{
+  "name": "testbot",
+  "version": "1.0.0",
+  "description": "Allowing alerting on coverage changes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ran Bar-Zik",
+  "license": "ISC",
+  "dependencies": {
+    "chokidar": "^1.6.0",
+    "slackbots": "^0.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.2.2",
+    "eslint-plugin-node": "^2.0.0"
+  }
+}

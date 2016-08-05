@@ -1,0 +1,11 @@
+{
+  "token" : "xoxb-xxxxxxxxxxxxxxxxxxxxxxx",
+  "karmaCoverFileLocation" : "./example.txt",
+  "name" : "My Bot",
+  "icon_emoji" : ":computer:",
+  "itemReport" : ["Lines", "Statements", "Branches", "Functions"],
+  "reportOnZero" : true,
+  "insults": ["This will be reported", "Why are you doing that to me?", "I am not pleased!"],
+  "praises": ["Good", "I am happy", "Keep on the good work!"]
+
+}
