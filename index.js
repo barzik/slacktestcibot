@@ -64,11 +64,11 @@ function _calculateDiff(name, oldValue, newValue) {
   var diff = (newValue - oldValue).toFixed(2);
 
   if(diff > 0) {
-    return name + ' coverage was increased by ' + diff + '% ' + addHumanPraise(true);
+    return name + ' coverage was increased by ' + diff + '% to ' + newValue + '% ' + addHumanPraise(true);
   }
 
   if(diff < 0) {
-    return name + ' coverage was decreased by ' + diff + '% '  + addHumanPraise(false);
+    return name + ' coverage was decreased by ' + diff + '% to ' + newValue + '% ' + addHumanPraise(false);
   }
 
   if(config.reportOnZero === true) {
