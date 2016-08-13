@@ -39,9 +39,11 @@ bot.on('start', function() {
         return;
       }
 
-      bot.getUsers().then(function(usersList) {
-
-        blame.getLastCommiter(config.repositoryURL, usersList).then(function(lastCommitter){
+      bot.getUsers()
+        .then(function(usersList) {
+          return blame.getLastCommiter(config.repositoryURL, usersList)
+        })
+        .then(function(lastCommitter) {
           if(!!lastCommitter.name) { //If I have the lastcommitter slack profile
             message += 'Hey <!channel>, <@'+ lastCommitter.id+ '|' + lastCommitter.name + '> just pushed a commit to the repository.\n';
           } else { //I have just the lastcommitter mail and name
@@ -62,12 +64,8 @@ bot.on('start', function() {
 
           bot.postMessageToChannel('general', message, params);
           originalContentOfFile = newFileContent;
+        })
 
-        });
-
-
-
-      });
 
 
     });
