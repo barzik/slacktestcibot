@@ -13,7 +13,7 @@ var SlackBot = require('slackbots'),
   defaultChannel = config.defaultChannel || 'general',
   introduction = config.introduction || 'I am ready';
 
-// create a bot 
+// create a bot
 bot = new SlackBot({
   token: config.token, // Add a bot https://my.slack.com/services/new/bot and put the token
   name: config.name
