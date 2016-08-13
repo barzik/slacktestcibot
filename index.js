@@ -5,7 +5,9 @@ var SlackBot = require('slackbots'),
   fs = require('fs'),
   filePath = config.karmaCoverFileLocation,
   originalContentOfFile = fs.readFileSync(filePath, "utf8"),
-  bot;
+  bot,
+  defaultChannel = config.defaultChannel || 'general',
+  introduction = config.introduction || 'I am ready';
 
 // create a bot 
 bot = new SlackBot({
@@ -25,7 +27,7 @@ bot.on('start', function() {
     }});
 
 
-  bot.postMessageToChannel('general', 'I am ready!', params);
+  bot.postMessageToChannel(defaultChannel, introduction, params);
 
   watcher.on('change', function() {
 
@@ -62,7 +64,7 @@ bot.on('start', function() {
             }
           });
 
-          bot.postMessageToChannel('general', message, params);
+          bot.postMessageToChannel(defaultChannel, message, params);
           originalContentOfFile = newFileContent;
         })
 

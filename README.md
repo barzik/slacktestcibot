@@ -12,6 +12,7 @@ You can get the API from https://YOUR-TEAM.slack.com/services/new/bot
 * Insert the location of your karma cover report to karmaCoverFileLocation. 
 The karma cover report must be made by karma runner preprocessor and made in text-summary format.
 For more information, see [Karma Coverage](https://github.com/karma-runner/karma-coverage) documentation.
+* Insert the location of your git repository to repositoryURL. Slackbot will use it to determine who
 * Change the options if you need any further customization.
     * name - the name of the bot
     * icon_emoji - The emoji of the bot.
@@ -19,6 +20,8 @@ For more information, see [Karma Coverage](https://github.com/karma-runner/karma
     * reportOnZero  - Do not report on items that thier coverage did not changed.
     * insults - Array of insults to say when coverage is down. 
     * praises - Array of praises to say when coverage is up.
+    * defaultChannel - where to post (default - general).
+    * introduction - The intro line that the bot say when he is initiated.
 * run by `node index.js`.
  
 ## Version
