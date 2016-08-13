@@ -1,5 +1,6 @@
 var SlackBot = require('slackbots'),
   config = require('./testbot-config.json'),
+  blame = require('./lib/blame'),
   chokidar = require('chokidar'),
   fs = require('fs'),
   filePath = config.karmaCoverFileLocation,
@@ -38,19 +39,36 @@ bot.on('start', function() {
         return;
       }
 
-      config.itemReport.forEach(function(value){
-        var originalPercentage, newPercentage,  line = '';
-        originalPercentage = _extractCoverage(value, originalContentOfFile);
-        newPercentage = _extractCoverage(value, newFileContent);
+      bot.getUsers().then(function(usersList) {
 
-        line = _calculateDiff(value, originalPercentage, newPercentage);
-        if(line) {
-          message += '\n' + line;
-        }
+        blame.getLastCommiter(config.repositoryURL, usersList).then(function(lastCommitter){
+          if(!!lastCommitter.name) { //If I have the lastcommitter slack profile
+            message += 'Hey <!channel>, <@'+ lastCommitter.id+ '|' + lastCommitter.name + '> just pushed a commit to the repository.\n';
+          } else { //I have just the lastcommitter mail and name
+            message += 'Hey <!channel>, ' + lastCommitter.profile.real_name + ' just pushed a commit to the repository.\n';
+            message += lastCommitter.profile.real_name + ' Please update your git mail or name to match your slack profile details.\n';
+          }
+
+          config.itemReport.forEach(function(value){
+            var originalPercentage, newPercentage,  line = '';
+            originalPercentage = _extractCoverage(value, originalContentOfFile);
+            newPercentage = _extractCoverage(value, newFileContent);
+
+            line = _calculateDiff(value, originalPercentage, newPercentage);
+            if(line) {
+              message += '\n' + line;
+            }
+          });
+
+          bot.postMessageToChannel('general', message, params);
+          originalContentOfFile = newFileContent;
+
+        });
+
+
+
       });
 
-      bot.postMessageToChannel('general', message, params);
-      originalContentOfFile = newFileContent;
 
     });
 
