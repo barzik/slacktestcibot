@@ -2,10 +2,14 @@ var SlackBot = require('slackbots'),
   config = require('./testbot-config.json'),
   blame = require('./lib/blame'),
   chokidar = require('chokidar'),
+  humanInteraction = require('./lib/human-interaction'),
+  fileInteraction = require('./lib/file-interaction'),
   fs = require('fs'),
   filePath = config.karmaCoverFileLocation,
   originalContentOfFile = fs.readFileSync(filePath, "utf8"),
   bot,
+  botParams,
+  defaultChannelId,
   defaultChannel = config.defaultChannel || 'general',
   introduction = config.introduction || 'I am ready';
 
@@ -15,31 +19,36 @@ bot = new SlackBot({
   name: config.name
 });
 
+botParams = {
+  icon_emoji: config.icon_emoji
+};
+
+bot.on('message', function(data) {
+  // all ingoing events https://api.slack.com/rtm
+  if(data.type === 'message' && data.channel === defaultChannelId && data.subtype !== 'bot_message')
+  humanInteraction.createInteraction(data.text).then(function(answer){
+    bot.postMessageToChannel(defaultChannel, answer, botParams);
+  });
+});
 
 bot.on('start', function() {
   // more information about additional params https://api.slack.com/methods/chat.postMessage
-  var params = {
-      icon_emoji: config.icon_emoji
-    },
-    watcher = chokidar.watch(filePath, {awaitWriteFinish: {
+  var watcher = chokidar.watch(filePath, {awaitWriteFinish: {
       stabilityThreshold: 2000,
       pollInterval: 100
     }});
 
+  bot.getChannelId(defaultChannel).then(function(id){
+    defaultChannelId = id;
+  });
 
-  bot.postMessageToChannel(defaultChannel, introduction, params);
+  bot.postMessageToChannel(defaultChannel, introduction, botParams);
 
   watcher.on('change', function() {
 
     var message = '';
 
-    fs.readFile(filePath, 'utf8', function(err, newFileContent) {
-
-      if (err) throw err;
-      if('' == newFileContent) {
-        console.error('file was empty');
-        return;
-      }
+    fileInteraction.getCoverage().then(function(newFileContent){
 
       bot.getUsers()
         .then(function(usersList) {
@@ -64,10 +73,9 @@ bot.on('start', function() {
             }
           });
 
-          bot.postMessageToChannel(defaultChannel, message, params);
+          bot.postMessageToChannel(defaultChannel, message, botParams);
           originalContentOfFile = newFileContent;
         })
-
 
 
     });
