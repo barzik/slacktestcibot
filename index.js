@@ -25,13 +25,18 @@ botParams = {
 
 bot.on('message', function(data) {
   // all ingoing events https://api.slack.com/rtm
-  if(data.type === 'message' && data.channel === defaultChannelId && data.subtype !== 'bot_message')
-  humanInteraction.createInteraction(data.text).then(function(answer){
-    bot.postMessageToChannel(defaultChannel, answer, botParams);
-  });
+  if(data.type === 'message' && data.channel === defaultChannelId && data.subtype !== 'bot_message') {
+    console.log('Bot Got message ' + data.text);
+    humanInteraction.createInteraction(data.text).then(function(answer){
+      bot.postMessageToChannel(defaultChannel, answer, botParams);
+    });
+  }
+
 });
 
 bot.on('start', function() {
+
+  console.log('Bot Started');
   // more information about additional params https://api.slack.com/methods/chat.postMessage
   var watcher = chokidar.watch(filePath, {awaitWriteFinish: {
       stabilityThreshold: 2000,
@@ -39,13 +44,16 @@ bot.on('start', function() {
     }});
 
   bot.getChannelId(defaultChannel).then(function(id){
+    console.log('Channel id detected: '+ id);
     defaultChannelId = id;
   });
 
-  bot.postMessageToChannel(defaultChannel, introduction, botParams);
+  bot.postMessageToChannel(defaultChannel, introduction, botParams).then(function() {
+    console.log('Posted introduction');
+  });
 
   watcher.on('change', function() {
-
+    console.log('Change in coverage file detected');
     var message = '';
 
     fileInteraction.getCoverage().then(function(newFileContent){
@@ -73,7 +81,9 @@ bot.on('start', function() {
             }
           });
 
-          bot.postMessageToChannel(defaultChannel, message, botParams);
+          bot.postMessageToChannel(defaultChannel, message, botParams).then(function() {
+            console.log('Posted message after coverage report alert.');
+          });
           originalContentOfFile = newFileContent;
         })
 
