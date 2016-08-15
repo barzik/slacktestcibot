@@ -6,7 +6,7 @@ the changes with additional.
 
 ## Setup
 
-* Copy testbot-config-sample.json to testbot-config.json
+* Copy testbot-config.json.sample to testbot-config.json
 * Insert the slack API token in the proper place in the testbot-config.json.
 You can get the API from https://YOUR-TEAM.slack.com/services/new/bot
 * Insert the location of your karma cover report to karmaCoverFileLocation. 
