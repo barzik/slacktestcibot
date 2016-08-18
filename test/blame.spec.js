@@ -73,6 +73,19 @@ describe('Blame sub module is working', function() {
 
   });
 
+  it('should getLastCommiter return commit data if commit is not in users list', function(done) {
+    gitStub.yields(null, {author : { email: 'xyz@xyz.com', name: 'xyz'}});
+
+    blame.getLastCommiter('fakePath', mockUserList).then(function(result) {
+      expect(gitStub.args[0][1].dst).to.be.equal('fakePath');
+
+      expect(result.profile.real_name).to.be.equal('xyz');
+      expect(result.profile.email).to.be.equal('xyz@xyz.com');
+      done();
+    })
+
+  });
+
   it('should getNameOfLastCommiter return last committer', function(done) {
     gitStub.yields(null, {author : { email: 'abc@abc.com', name: 'abc'}});
 
