@@ -4,7 +4,8 @@
   "description": "Allowing alerting on coverage changes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec"
   },
   "author": "Ran Bar-Zik",
   "license": "ISC",
@@ -13,8 +14,12 @@
     "slackbots": "^0.5.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^3.2.2",
     "eslint-plugin-node": "^2.0.0",
-    "q": "^1.4.1"
+    "istanbul": "^0.4.4",
+    "mocha": "^3.0.2",
+    "q": "^1.4.1",
+    "sinon": "^1.17.5"
   }
 }
