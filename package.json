@@ -17,9 +17,11 @@
     "chai": "^3.5.0",
     "eslint": "^3.2.2",
     "eslint-plugin-node": "^2.0.0",
+    "git-last-commit": "^0.2.0",
     "istanbul": "^0.4.4",
     "mocha": "^3.0.2",
     "q": "^1.4.1",
-    "sinon": "^1.17.5"
+    "sinon": "^1.17.5",
+    "sinon-as-promised": "^4.0.2"
   }
 }
