@@ -1,4 +1,4 @@
-
+==== This is an example of short karma cover report. please do not remove =======
 =============================== Coverage summary ===============================
 Statements   : 37.20% ( 2855/7679 )
 Branches     : 24.63% ( 652/2645 )

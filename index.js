@@ -63,7 +63,7 @@ bot.on('start', function() {
           return blame.getLastCommiter(config.repositoryURL, usersList)
         })
         .then(function(lastCommitter) {
-          return humanInteraction.doAction('ReportLastCommit', lastCommitter)
+          return humanInteraction.doAction('ReportLastCommit', lastCommitter, originalContentOfFile, newFileContent)
         })
         .then(function(message){
           bot.postMessageToChannel(defaultChannel, message, botParams).then(function() {

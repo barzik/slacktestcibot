@@ -1,6 +1,6 @@
 {
   "token" : "xoxb-xxxxxxxxxxxxxxxxxxxxxxx",
-  "karmaCoverFileLocation" : "./example.txt",
+  "karmaCoverFileLocation" : "./example_karma_cover.txt",
   "repositoryURL": "/path/to/repo",
   "repositoryName": "application",
   "defaultChannel": "general",
