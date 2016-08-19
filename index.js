@@ -39,9 +39,9 @@ bot.on('start', function() {
   console.log('Bot Started');
   // more information about additional params https://api.slack.com/methods/chat.postMessage
   var watcher = chokidar.watch(filePath, {awaitWriteFinish: {
-      stabilityThreshold: 2000,
-      pollInterval: 100
-    }});
+    stabilityThreshold: 2000,
+    pollInterval: 100
+  }});
 
   bot.getChannelId(defaultChannel).then(function(id){
     console.log('Channel id detected: '+ id);
@@ -54,25 +54,25 @@ bot.on('start', function() {
 
   watcher.on('change', function() {
     console.log('Change in coverage file detected');
-    var message = '';
+    var newFileContent = '';
 
-    fileInteraction.getCoverage().then(function(newFileContent){
-
-      bot.getUsers()
-        .then(function(usersList) {
-          return blame.getLastCommiter(config.repositoryURL, usersList)
-        })
-        .then(function(lastCommitter) {
-          return humanInteraction.doAction('ReportLastCommit', lastCommitter, originalContentOfFile, newFileContent)
-        })
-        .then(function(message){
-          bot.postMessageToChannel(defaultChannel, message, botParams).then(function() {
-            console.log('Posted message after coverage report alert.');
-          });
-          originalContentOfFile = newFileContent;
+    fileInteraction.getCoverage()
+      .then(function(_newFileContent){
+        newFileContent = _newFileContent;
+        return bot.getUsers()
+      })
+      .then(function(usersList) {
+        return blame.getLastCommiter(config.repositoryURL, usersList)
+      })
+      .then(function(lastCommitter) {
+        return humanInteraction.doAction('ReportLastCommit', lastCommitter, originalContentOfFile, newFileContent)
+      })
+      .then(function(message){
+        bot.postMessageToChannel(defaultChannel, message, botParams).then(function() {
+          console.log('Posted message after coverage report alert.');
         });
-
-    });
+        originalContentOfFile = newFileContent;
+      });
 
   });
 
