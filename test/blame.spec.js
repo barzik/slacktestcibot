@@ -1,7 +1,7 @@
 var expect = require('chai').expect,
   sinon = require('sinon'),
   blame = require('./../lib/blame'),
-  git = require('./../lib/blame/src/git-last-commit.temp.js'),
+  git = require('git-last-commit'),
   gitStub,
   mockUserList;
 
