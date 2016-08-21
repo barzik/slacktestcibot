@@ -6,7 +6,7 @@
   "rules": {
     "comma-dangle": [
       2,
-      "only-multiline"
+      "never"
     ],
     "no-control-regex": 2,
     "no-debugger": 2,
