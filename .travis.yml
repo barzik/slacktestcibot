@@ -4,3 +4,7 @@ node_js:
   - "5"
   - "6"
   - "iojs"
+install:
+- npm install eslint -g
+script:
+- npm run eslint
