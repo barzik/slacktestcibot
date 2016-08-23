@@ -1,5 +1,8 @@
 # Slack CI Test bot
 
+[![Build Status](https://travis-ci.org/barzik/slacktestcibot.svg?branch=master)](https://travis-ci.org/barzik/slacktestcibot)
+
+
 Slack CI Test bot is a bot for sending karma coverage report format data to team's slack account.
 The bot will monitor the changes in the karma coverage report file and will notify on the general channel about
 the changes with additional.
@@ -23,6 +26,20 @@ For more information, see [Karma Coverage](https://github.com/karma-runner/karma
     * defaultChannel - where to post (default - general).
     * introduction - The intro line that the bot say when he is initiated.
 * run by `node index.js`.
+
+## Test
+
+Use Mocha for unit tests. Run `npm test` to run the test.
+ 
+### Coverage
+
+ Coverage done by Istanbul. Run `npm run coverage` to get coverage report.
+
+### Static code analysis
+
+Done with ESLint. Run `npm run eslint` to do static code analysis check.
+ 
+
  
 ## Version
  
