@@ -17,7 +17,7 @@ test_script:
   - npm --version
   # run tests
   - npm test
-  - npm eslint
+  - npm run eslint
 
 # Don't actually build.
 build: off
