@@ -1,6 +1,7 @@
 # Slack CI Test bot
 
-[![Build Status](https://travis-ci.org/barzik/slacktestcibot.svg?branch=master)](https://travis-ci.org/barzik/slacktestcibot)     [![Dependency Status](https://gemnasium.com/badges/github.com/barzik/slacktestcibot.svg)](https://gemnasium.com/github.com/barzik/slacktestcibot)
+[![Build Status](https://travis-ci.org/barzik/slacktestcibot.svg?branch=master)](https://travis-ci.org/barzik/slacktestcibot)     [![Dependency Status](https://gemnasium.com/badges/github.com/barzik/slacktestcibot.svg)](https://gemnasium.com/github.com/barzik/slacktestcibot) [![Build status](https://ci.appveyor.com/api/projects/status/69y78r8kw4v1symp/branch/master?svg=true)](https://ci.appveyor.com/project/barzik/slacktestcibot/branch/master)
+
 
 
 Slack CI Test bot is a bot for sending karma coverage report format data to team's slack account.
